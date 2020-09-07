@@ -59,18 +59,15 @@ public class MainResearchRankingList {
         .sorted(((research1, research2) -> research2.getHeatValue() - research1.getHeatValue()))
         .collect(Collectors.toList());
 
-    boughtRankingList.stream().forEach(boughtRanking -> {
-      sortedResearchList.add(boughtRanking.getRankingIndex() - 1, boughtRanking.getRankingResearch());
-    });
+    boughtRankingList.forEach(boughtRanking -> sortedResearchList.add(boughtRanking.getRankingIndex() - 1, boughtRanking.getRankingResearch()));
 
     return sortedResearchList;
   }
 
   private static List<Research> getBoughtResearch() {
-    List<Research> boughtResearch = boughtRankingList.stream()
-        .map(boughtRanking -> boughtRanking.getRankingResearch())
+    return boughtRankingList.stream()
+        .map(BoughtRanking::getRankingResearch)
         .collect(Collectors.toList());
-    return boughtResearch;
   }
 
   private static void removeResearch(Research research) {

@@ -33,10 +33,7 @@ public class User {
 
   public boolean isResearchNameExists(String researchName) {
     Research researchAccordingToName = MainResearchRankingList.findResearchAccordingToName(researchName);
-    if (researchAccordingToName == null) {
-      return false;
-    }
-    return true;
+    return researchAccordingToName != null;
   }
 
   public String getUsername() {

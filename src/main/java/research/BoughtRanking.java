@@ -5,7 +5,7 @@ import java.util.Objects;
 public class BoughtRanking {
   private int rankingIndex;
   private Research rankingResearch;
-  private int rankingPrice = 0;
+  private int rankingPrice;
 
   public BoughtRanking(int rankingIndex, Research rankingResearch, int rankingPrice) {
     this.rankingIndex = rankingIndex;

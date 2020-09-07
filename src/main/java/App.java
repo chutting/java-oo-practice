@@ -31,8 +31,6 @@ public class App {
   private static final String PLEASE_INPUT_THE_PRICE_YOU_WANT_TO_COST = "请输入您要购买的热搜金额";
   private static final String RANKING_INDEX_IS_OUT_OF_RANGE = "您想购买的排位超出范围";
 
-
-
   private static LinkedList<GeneralUser> userList = new LinkedList<>();
 
   public static void show() {
@@ -40,10 +38,10 @@ public class App {
     int index = inputInt();
     switch (index) {
       case 1:
-        showUserInterface();
+        checkUsername();
         break;
       case 2:
-        showAdminInterface();
+        checkAdminAccount();
         break;
       case 3:
         break;
@@ -63,7 +61,7 @@ public class App {
     return inputScanner.nextInt();
   }
 
-  private static void showUserInterface() {
+  private static void checkUsername() {
     System.out.println(PLEASE_INPUT_USERNAME);
     String username = inputString();
     GeneralUser generalUser = new GeneralUser(username);
@@ -92,7 +90,7 @@ public class App {
           System.out.println(VOTE_NUM_IS_ZERO);
           userInterface(user);
         }
-        inputVoteName(user);
+        checkVoteName(user);
         break;
       case 3:
         buyRanking(user);
@@ -115,20 +113,20 @@ public class App {
     String boughtRankingResearchName = inputString();
     boolean isVoteResearchNameExists = user.isResearchNameExists(boughtRankingResearchName);
     if (isVoteResearchNameExists) {
-      inputBoughtRankingAndPrice(boughtRankingResearchName, user);
+      checkBoughtRankingAndPrice(boughtRankingResearchName, user);
     } else {
       System.out.println(BUY_RANKING_FAILURE_RESEARCH_NOT_EXISTS);
       userInterface(user);
     }
   }
 
-  private static void inputBoughtRankingAndPrice(String boughtRankingResearchName, GeneralUser user) {
+  private static void checkBoughtRankingAndPrice(String boughtRankingResearchName, GeneralUser user) {
     System.out.println(PLEASE_INPUT_THE_RANKING_YOU_WANT_TO_BUY);
-    int ranking = inputInt();
+    int rankingIndex = inputInt();
     System.out.println(PLEASE_INPUT_THE_PRICE_YOU_WANT_TO_COST);
     int price = inputInt();
-    if (isBoughtRankingLegal(ranking)) {
-      String buyRankingPrompt = user.buy(boughtRankingResearchName, price, ranking);
+    if (isBoughtRankingLegal(rankingIndex)) {
+      String buyRankingPrompt = user.buy(boughtRankingResearchName, price, rankingIndex);
       System.out.println(buyRankingPrompt);
     } else {
       System.out.println(RANKING_INDEX_IS_OUT_OF_RANGE);
@@ -137,30 +135,26 @@ public class App {
   }
 
   private static boolean isBoughtRankingLegal(int ranking) {
-    if (ranking > 0 && ranking <= MainResearchRankingList.getResearchRankingList().size()) {
-      return true;
-    }
-    return false;
+    return ranking > 0 && ranking <= MainResearchRankingList.getResearchRankingList().size();
   }
 
-  private static void inputVoteName(GeneralUser user) {
+  private static void checkVoteName(GeneralUser user) {
     System.out.println(PLEASE_INPUT_VOTE_RESEARCH_NAME);
     String voteResearchName = inputString();
-    boolean isVoteResearchNameExists = user.isResearchNameExists(voteResearchName);
-    if (isVoteResearchNameExists) {
-      inputVoteNum(voteResearchName, user);
+    if (user.isResearchNameExists(voteResearchName)) {
+      checkVoteNum(voteResearchName, user);
     } else {
       System.out.println(VOTE_FAILURE_RESEARCH_NOT_EXISTS);
       userOption(2, user);
     }
   }
 
-  private static void inputVoteNum(String voteResearchName, GeneralUser user) {
+  private static void checkVoteNum(String voteResearchName, GeneralUser user) {
     System.out.println(String.format(PLEASE_INPUT_VOTE_NUM, user.getRemainingVoteNum()));
     int voteNum = inputInt();
     if (voteNum > user.getRemainingVoteNum()) {
       System.out.println(VOTE_FAILURE_VOTE_NUM_NOT_ENOUGH);
-      inputVoteNum(voteResearchName, user);
+      checkVoteNum(voteResearchName, user);
     } else {
       user.vote(voteResearchName, voteNum);
       System.out.println(VOTE_SUCCESS);
@@ -175,7 +169,7 @@ public class App {
     System.out.println(isAddSuccess ? ADD_SUCCESS : ADD_FAILURE);
   }
 
-  private static void showAdminInterface() {
+  private static void checkAdminAccount() {
     System.out.println(PLEASE_INPUT_USERNAME);
     String username = inputString();
     System.out.println(PLEASE_INPUT_PASSWORD);

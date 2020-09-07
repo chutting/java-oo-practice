@@ -18,8 +18,7 @@ public class GeneralUser extends User{
   }
 
   public String buy(String researchName, int price, int rankingIndex) {
-    String buyRankingPrompt = MainResearchRankingList.buyRanking(researchName, price, rankingIndex);
-    return buyRankingPrompt;
+    return MainResearchRankingList.buyRanking(researchName, price, rankingIndex);
   }
 
   public int getRemainingVoteNum() {
