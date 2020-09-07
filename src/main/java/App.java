@@ -29,6 +29,8 @@ public class App {
   private static final String BUY_RANKING_FAILURE_RESEARCH_NOT_EXISTS = "您想购买的热搜不存在，请重新输入";
   private static final String PLEASE_INPUT_THE_RANKING_YOU_WANT_TO_BUY = "请输入您想购买的热搜排名";
   private static final String PLEASE_INPUT_THE_PRICE_YOU_WANT_TO_COST = "请输入您要购买的热搜金额";
+  private static final String RANKING_INDEX_IS_OUT_OF_RANGE = "您想购买的排位超出范围";
+
 
 
   private static LinkedList<GeneralUser> userList = new LinkedList<>();
@@ -129,7 +131,7 @@ public class App {
       String buyRankingPrompt = user.buy(boughtRankingResearchName, price, ranking);
       System.out.println(buyRankingPrompt);
     } else {
-      System.out.println("您想要的排位超出范围");
+      System.out.println(RANKING_INDEX_IS_OUT_OF_RANGE);
     }
     userInterface(user);
   }

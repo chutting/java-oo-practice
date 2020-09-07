@@ -79,7 +79,7 @@ public class MainResearchRankingList {
 
   public static Research findResearchAccordingToName(String researchName) {
     List<Research> researchWithName = researchRankingList.stream()
-        .filter(research -> research.getName().equals(researchName)).collect(Collectors.toList());
+        .filter(research -> research.getName().equalsIgnoreCase(researchName)).collect(Collectors.toList());
 
     if (researchWithName.size() == 0) {
       return null;

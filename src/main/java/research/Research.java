@@ -37,7 +37,7 @@ public class Research {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     Research research = (Research) o;
-    return Objects.equals(name, research.name);
+    return Objects.equals(name.toLowerCase(), research.name.toLowerCase());
   }
 
   @Override
