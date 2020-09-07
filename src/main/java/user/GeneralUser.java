@@ -1,7 +1,7 @@
 package user;
 
 import research.Research;
-import research.ResearchRanking;
+import research.MainResearchRankingList;
 
 public class GeneralUser extends User{
 
@@ -12,20 +12,17 @@ public class GeneralUser extends User{
   }
 
   public void vote(String voteName, int voteNum) {
-    Research researchAccordingToName = ResearchRanking.findResearchAccordingToName(voteName);
+    Research researchAccordingToName = MainResearchRankingList.findResearchAccordingToName(voteName);
     researchAccordingToName.vote(voteNum);
     remainingVoteNum -= voteNum;
   }
 
-  public void buy(String researchName, int price, int ranking) {
-
+  public String buy(String researchName, int price, int rankingIndex) {
+    String buyRankingPrompt = MainResearchRankingList.buyRanking(researchName, price, rankingIndex);
+    return buyRankingPrompt;
   }
 
   public int getRemainingVoteNum() {
     return remainingVoteNum;
-  }
-
-  public void setRemainingVoteNum(int remainingVoteNum) {
-    this.remainingVoteNum = remainingVoteNum;
   }
 }

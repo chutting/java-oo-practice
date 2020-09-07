@@ -1,7 +1,7 @@
 package user;
 
 import research.Research;
-import research.ResearchRanking;
+import research.MainResearchRankingList;
 
 public class Administrator extends User{
   private String password;
@@ -12,9 +12,9 @@ public class Administrator extends User{
   }
 
   public void addSuperResearch(String researchName) {
-    Research researchAccordingToName = ResearchRanking.findResearchAccordingToName(researchName);
+    Research researchAccordingToName = MainResearchRankingList.findResearchAccordingToName(researchName);
     if (researchAccordingToName == null) {
-      ResearchRanking.addResearch(new Research(researchName, true));
+      MainResearchRankingList.addResearch(new Research(researchName, true));
     } else {
       researchAccordingToName.setSuperResearch(true);
     }
@@ -22,13 +22,5 @@ public class Administrator extends User{
 
   public boolean isAdminAccountCorrect(String username, String password) {
     return (username.equals(this.getUsername()) && password.equals(this.password));
-  }
-
-  public String getPassword() {
-    return password;
-  }
-
-  public void setPassword(String password) {
-    this.password = password;
   }
 }

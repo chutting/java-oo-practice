@@ -5,8 +5,6 @@ import java.util.Objects;
 public class Research {
   private String name;
   private int voteNum = 0;
-  private int boughtRanking = 0;
-  private int researchPrice = 0;
   private boolean isSuperResearch = false;
 
   public Research(String name) {
@@ -26,33 +24,12 @@ public class Research {
     this.voteNum += voteNum;
   }
 
-  public void buyResearch(int price, int boughtRanking) {
-    this.boughtRanking = boughtRanking;
-    this.researchPrice += price;
-  }
-
   public String getName() {
     return name;
   }
 
-  public boolean isSuperResearch() {
-    return isSuperResearch;
-  }
-
   public void setSuperResearch(boolean superResearch) {
     isSuperResearch = superResearch;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  public int getResearchPrice() {
-    return researchPrice;
-  }
-
-  public void setResearchPrice(int researchPrice) {
-    this.researchPrice = researchPrice;
   }
 
   @Override

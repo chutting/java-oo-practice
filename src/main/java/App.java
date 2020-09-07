@@ -1,3 +1,4 @@
+import research.MainResearchRankingList;
 import user.Administrator;
 import user.GeneralUser;
 import user.User;
@@ -24,6 +25,10 @@ public class App {
   private static final String VOTE_FAILURE_VOTE_NUM_NOT_ENOUGH = "您的票数不够,请重新输入";
   private static final String VOTE_SUCCESS = "投票成功";
   private static final String VOTE_NUM_IS_ZERO = "您的票数已为0，无法投票";
+  private static final String PLEASE_INPUT_BOUGHT_RANKING_RESEARCH_NAME = "请输入您想购买的热搜名称";
+  private static final String BUY_RANKING_FAILURE_RESEARCH_NOT_EXISTS = "您想购买的热搜不存在，请重新输入";
+  private static final String PLEASE_INPUT_THE_RANKING_YOU_WANT_TO_BUY = "请输入您想购买的热搜排名";
+  private static final String PLEASE_INPUT_THE_PRICE_YOU_WANT_TO_COST = "请输入您要购买的热搜金额";
 
 
   private static LinkedList<GeneralUser> userList = new LinkedList<>();
@@ -88,7 +93,7 @@ public class App {
         inputVoteName(user);
         break;
       case 3:
-        System.out.println("购买热搜");
+        buyRanking(user);
         break;
       case 4:
         addResearch(user);
@@ -101,6 +106,39 @@ public class App {
         System.out.println(THE_INPUT_INDEX_IS_INCORRECT);
         userInterface(user);
     }
+  }
+
+  private static void buyRanking(GeneralUser user) {
+    System.out.println(PLEASE_INPUT_BOUGHT_RANKING_RESEARCH_NAME);
+    String boughtRankingResearchName = inputString();
+    boolean isVoteResearchNameExists = user.isResearchNameExists(boughtRankingResearchName);
+    if (isVoteResearchNameExists) {
+      inputBoughtRankingAndPrice(boughtRankingResearchName, user);
+    } else {
+      System.out.println(BUY_RANKING_FAILURE_RESEARCH_NOT_EXISTS);
+      userInterface(user);
+    }
+  }
+
+  private static void inputBoughtRankingAndPrice(String boughtRankingResearchName, GeneralUser user) {
+    System.out.println(PLEASE_INPUT_THE_RANKING_YOU_WANT_TO_BUY);
+    int ranking = inputInt();
+    System.out.println(PLEASE_INPUT_THE_PRICE_YOU_WANT_TO_COST);
+    int price = inputInt();
+    if (isBoughtRankingLegal(ranking)) {
+      String buyRankingPrompt = user.buy(boughtRankingResearchName, price, ranking);
+      System.out.println(buyRankingPrompt);
+    } else {
+      System.out.println("您想要的排位超出范围");
+    }
+    userInterface(user);
+  }
+
+  private static boolean isBoughtRankingLegal(int ranking) {
+    if (ranking > 0 && ranking <= MainResearchRankingList.getResearchRankingList().size()) {
+      return true;
+    }
+    return false;
   }
 
   private static void inputVoteName(GeneralUser user) {

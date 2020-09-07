@@ -1,7 +1,7 @@
 package user;
 
 import research.Research;
-import research.ResearchRanking;
+import research.MainResearchRankingList;
 
 import java.util.List;
 import java.util.Objects;
@@ -14,7 +14,7 @@ public class User {
   }
 
   public void viewResearchRankingList() {
-    List<Research> sortedResearchRankingList = ResearchRanking.getSortedResearchRankingList();
+    List<Research> sortedResearchRankingList = MainResearchRankingList.getSortedResearchRankingList();
 
     for (int i = 0; i < sortedResearchRankingList.size(); i++) {
       System.out.println((i + 1) + " " + sortedResearchRankingList.get(i));
@@ -24,15 +24,15 @@ public class User {
   public boolean addResearch(String researchName) {
     Research research = new Research(researchName);
 
-    if (ResearchRanking.getResearchRankingList().contains(research)) {
+    if (MainResearchRankingList.getResearchRankingList().contains(research)) {
       return false;
     }
-    ResearchRanking.addResearch(research);
+    MainResearchRankingList.addResearch(research);
     return true;
   }
 
   public boolean isResearchNameExists(String researchName) {
-    Research researchAccordingToName = ResearchRanking.findResearchAccordingToName(researchName);
+    Research researchAccordingToName = MainResearchRankingList.findResearchAccordingToName(researchName);
     if (researchAccordingToName == null) {
       return false;
     }
@@ -41,10 +41,6 @@ public class User {
 
   public String getUsername() {
     return username;
-  }
-
-  public void setUsername(String username) {
-    this.username = username;
   }
 
   @Override
